@@ -20,3 +20,10 @@ export function calculateDiscount(price, percentage) {
   // Final price = original price - discount
   return price - discount;
 }
+
+// Example usage
+export function calculateDiscountExample(price, discountPercent) {
+  if (price == null || discountPercent == null) return 0;
+  if (price < 0 || discountPercent < 0) return 0;
+  return price - (price * discountPercent) / 100;
+}

@@ -1,5 +1,5 @@
 // Import the functions to be tested
-import { getPosts, getUsers } from "../services/jsonPlaceholder";
+import { getComments, getPosts, getUsers } from "../services/jsonPlaceholder";
 
 // Use Jest's mocking system to mock the global fetch function
 // This replaces the real fetch with a mock we can control in our tests
@@ -111,5 +111,53 @@ describe("getPosts API Service", () => {
 
     // Act & Assert
     await expect(getPosts()).rejects.toThrow("Network failure");
+  });
+});
+
+// Test suite for getComments API service
+describe("getComments API Service", () => {
+  // Reset fetch mock before each test
+  beforeEach(() => {
+    fetch.mockClear();
+  });
+
+  it("should return user data on successful fetch", async () => {
+    // Arrange: Fake post data
+    const mockUserData = [{ postId: 1, id: 1, name: "Test Title" }];
+
+    // Mock successful response
+    fetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => mockUserData,
+    });
+
+    // Act
+    const result = await getComments();
+
+    // Assert
+    expect(result).toEqual(mockUserData);
+    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(fetch).toHaveBeenCalledWith(
+      "https://jsonplaceholder.typicode.com/comments" // Different endpoint
+    );
+  });
+
+  it("should throw an error if response is not ok", async () => {
+    // Arrange: Simulate server error
+    fetch.mockResolvedValueOnce({
+      ok: false,
+      status: 500,
+    });
+
+    // Act & Assert
+    await expect(getComments()).rejects.toThrow("API error: 500");
+  });
+
+  it("should throw an error on network failure", async () => {
+    // Arrange: Simulate network error
+    fetch.mockRejectedValueOnce(new Error("Network failure"));
+
+    // Act & Assert
+    await expect(getComments()).rejects.toThrow("Network failure");
   });
 });

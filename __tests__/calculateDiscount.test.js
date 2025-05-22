@@ -1,5 +1,8 @@
 // ✅ Import the function to test
-import { calculateDiscount } from "../src/utils/calculateDiscount";
+import {
+  calculateDiscount,
+  calculateDiscountExample,
+} from "../src/utils/calculateDiscount";
 
 describe("calculateDiscount", () => {
   // groups related tests together defined as describe block
@@ -38,5 +41,22 @@ describe("calculateDiscount", () => {
     expect(() => calculateDiscount("100", "10")).toThrow(
       "Inputs must be numbers"
     );
+  });
+});
+
+describe("calculateDiscountExample", () => {
+  test("returns 0 for null or undefined inputs", () => {
+    expect(calculateDiscountExample(null, 10)).toBe(0);
+    expect(calculateDiscountExample(100, null)).toBe(0);
+    expect(calculateDiscountExample(undefined, undefined)).toBe(0);
+  });
+
+  test("returns 0 for negative inputs", () => {
+    expect(calculateDiscountExample(-100, 10)).toBe(0);
+    expect(calculateDiscountExample(100, -10)).toBe(0);
+  });
+
+  test("calculates correct discount for valid inputs", () => {
+    expect(calculateDiscountExample(200, 10)).toBe(180);
   });
 });

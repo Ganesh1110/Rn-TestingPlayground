@@ -35,3 +35,21 @@ export const getPosts = async () => {
     throw error;
   }
 };
+
+export const getComments = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/comments`);
+
+    // Check if the response was successful
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    // Log the error (in real apps, you'd handle this differently)
+    console.error("getComments error:", error.message);
+    throw error;
+  }
+};

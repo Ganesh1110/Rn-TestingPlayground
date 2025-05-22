@@ -18,6 +18,9 @@ afterAll(() => {
 
 // Test suite for getUsers API service
 describe("getUsers API Service", () => {
+  beforeEach(() => {
+    fetch.mockReset(); // Clear mock between each test
+  });
   // Before each test, clear any previous mock calls/results
   // This ensures tests don't affect each other
   beforeEach(() => {
@@ -68,6 +71,9 @@ describe("getUsers API Service", () => {
 
 // Test suite for getPosts API service
 describe("getPosts API Service", () => {
+  beforeEach(() => {
+    fetch.mockReset(); // Clear mock between each test
+  });
   // Reset fetch mock before each test
   beforeEach(() => {
     fetch.mockClear();
@@ -116,6 +122,9 @@ describe("getPosts API Service", () => {
 
 // Test suite for getComments API service
 describe("getComments API Service", () => {
+  beforeEach(() => {
+    fetch.mockReset(); // Clear mock between each test
+  });
   // Reset fetch mock before each test
   beforeEach(() => {
     fetch.mockClear();
